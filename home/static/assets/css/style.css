@@ -1170,8 +1170,9 @@ section {
 /* Newsletter Section
 --------------------------------*/
 #newsletter {
-  background: rgba(0, 0, 0, 0) url(../img/newsletter-bg.jpg) no-repeat center top fixed;
+  background: rgba(0, 0, 0, 0) url(../img/back2.jpg) no-repeat center top fixed;
   background-size: cover;
+  font-weight: bold;
 }
 
 #newsletter .overlay {
@@ -1236,14 +1237,14 @@ section {
 }
 
 #newsletter ul li {
-  background: #71c55d;
+  background: #4b7f34;
   border-radius: 50px;
   float: left;
-  height: 35px;
+  height: 50px;
   line-height: 35px;
-  margin-left: 10px;
-  margin-right: 10px;
-  width: 35px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 50px;
   transition: 0.3s;
   display: flex;
   align-items: center;
@@ -1263,6 +1264,7 @@ section {
 #newsletter ul li i {
   color: #fff;
   line-height: 0;
+  font-size: large;
 }
 
 /* Contact Section

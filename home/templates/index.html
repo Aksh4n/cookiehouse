@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>CookieHouse / خانه ی کوکی</title>
+  <title>CookieHouse</title>
   <meta content="تهیه و طراحی انواع کوکی و بیسکوییت مناسبتی با  رویال آیسینگ" name="description">
   <meta content="کوکی رویال آیسینگ " name="keywords">
 
@@ -52,7 +52,7 @@
           <li><a class="nav-link scrollto" href="#screenshots">جدید ترین ها</a></li>
           <li><a class="nav-link scrollto" href="#portfolio">گالری</a></li>
           <li><a class="nav-link scrollto" href="#blog"> کوکی بلاگ</a></li>
-          <li><a class="nav-link scrollto" href="#contact">ارتباط با ما</a></li>
+          <li><a class="nav-link scrollto" href="#newsletter">ارتباط با ما</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
@@ -66,7 +66,7 @@
       <h1>CookieHouse</h1>
       <h2>قبول سفارش انواع بیسکوییت مناسبتی</h2>
       <img src="{% static '' %}assets/img/green.png" alt="Hero Imgs" data-aos="zoom-out" data-aos-delay="100">
-      <a href="#get-started" class="btn-get-started scrollto">ثبت سفارش</a>
+      <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-get-started scrollto">ثبت سفارش</a>
       <div class="btns">
         <a href="#"><i class="fa fa-apple fa-3x"></i>#کوکی</a>
         <a href="#"><i class="fa fa-play fa-3x"></i>رویال_آیسینگ</a>
@@ -74,6 +74,73 @@
       </div>
     </div>
   </section><!-- End Hero Section -->
+  <div dir="rtl" class="modal fade" id="exampleModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div dir="ltr" class="modal-header">
+          <h5 class="modal-title">ثبت سفارش </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="sefaresh-form" method="post" enctype="multipart/form-data" action="{% url 'sefaresh' %}" class="">
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                  <input type="text" name="name" class="form-control rounded-3" id="floatingInput" placeholder="نام">
+                  <label for="floatingInput">نام و نام خانوادگی</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="file" name="image" class="form-control rounded-3" id="floatingPassword" placeholder="">
+                    <label for="floatingPassword">آپلود تصویر طرح مورد نظر</label>
+                  </div>
+  
+    
+                <div class="form-floating mb-3">
+                  <input type="email" name="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">آدرس ایمیل</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="text" name="phone" class="form-control rounded-3" id="floatingPassword" placeholder="PhoneNumber">
+                  <label for="floatingPassword">شماره همراه</label>
+                </div>
+                <div class="form-group mt-3">
+                  <textarea class="form-control" name="message" rows="5" placeholder="توضیحات سفارش " required></textarea>
+                </div>
+                <br>
+
+    
+                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-success" type="submit"> تایید و ارسال</button>
+                <hr class="my-4">
+              </form>
+    
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const order = document.getElementById('sefaresh-form');
+  order.addEventListener("submit",submitHandler);
+  function submitHandler(e) {
+      var serializedData = $(this).serialize();
+      e.preventDefault();
+      $.ajax({
+          type: 'POST' , 
+          url : '{% url "sefaresh" %}',
+          data: new FormData(this),
+          processData: false,
+          contentType: false,
+          dataType: 'json',
+          success: function (data) {
+              if (data.msg === 'Success') {
+                  alert('  سفارش شما ثبت شد , به زودی با شما تماس میگیریم  ');
+                  $("#sefaresh-form").trigger('reset'); 
+        } else {
+          alert('فرم صحیح نیست , لطفا دوباره امتحان کنید')
+        }
+      }
+   })
+  }
+  
+  </script>
 
   <main id="main">
 
@@ -223,43 +290,62 @@
         </div>
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
-
+        {% for a in b  %}
           <div class="col-md-6 col-lg-4">
             <div class="block-blog text-left">
-              <a href="#"><img src="{% static '' %}assets/img/blog/blog-image-1.jpg" alt="img"></a>
+              <a href="#"><img src="{{a.imageURL}}" alt="img"></a>
               <div class="content-blog">
-                <h4><a href="#">آموزش تهیه رویال آیسینگ در خانه</a></h4>
-                <span>05, juin 2017</span>
-                <a class="float-end readmore" href="#">خواندن مطلب</a>
+                <h4><a href="#">    {{a.title}} </a></h4>
+                <span>&#128151;</span>
+                <a class="float-end readmore" data-bs-toggle="modal" data-bs-target="#box{{a.id}}" href="">خواندن مطلب</a>
               </div>
             </div>
           </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="block-blog text-left">
-              <a href="#"><img src="{% static '' %}assets/img/blog/blog-image-2.jpg" class="img-responsive" alt="img"></a>
-              <div class="content-blog">
-                <h4><a href="#">whats isthe difference between good and bat typography</a></h4>
-                <span>05, juin 2017</span>
-                <a class="float-end readmore" href="#">read more</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-4">
-            <div class="block-blog text-left">
-              <a href="#"><img src="{% static '' %}assets/img/blog/blog-image-3.jpg" class="img-responsive" alt="img"></a>
-              <div class="content-blog">
-                <h4><a href="#">whats isthe difference between good and bat typography</a></h4>
-                <span>05, juin 2017</span>
-                <a class="float-end readmore" href="#">read more</a>
-              </div>
-            </div>
-          </div>
-
+          {% endfor %}
         </div>
       </div>
     </section><!-- End Blog Section -->
+    {% for a in b %}
+    <div id="box{{a.id}}" class="modal fade " tabindex="-1">
+      <div  class="modal-dialog modal-fullscreen modal-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{a.title}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div  class="modal-body">
+            <section id="speakers-details">
+              <div class="container">
+        
+                <div class="row">
+                  <div class="col-md-6">
+                    <img src="{{a.imageURL}}" alt="Speaker 1" class="img-fluid">
+                  </div>
+        
+                  <div class="col-md-6">
+                    <div class="details">
+                      <div class="social">
+                        <a href="https://t.me/+989353076803"><i class="bi bi-telegram"></i></a>
+                        <a href="https://wa.me/+989353076803"><i class="bi bi-whatsapp"></i></a>
+                        <a href="https://www.instagram.com/__cookiehouse__/"><i class="bi bi-instagram"></i></a>
+                      </div>
+                      <p style="font-size: medium;text-align: justify;">{{a.text}}.</p>
+        
+                    </div>
+                  </div>
+        
+                </div>
+              </div>
+        
+            </section>
+        
+.....
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {% endfor %}
 
     <!-- ======= Newsletter Section ======= -->
     <section id="newsletter" class="newsletter text-center">
@@ -268,90 +354,26 @@
 
           <div class="row justify-content-center">
             <div class="col-md-9 col-lg-6">
-              <form class="d-flex" method="POST" action="#">
-                <input type="email" class="form-control " placeholder="Email Adress" name="email">
-                <button type="submit" class="btn btn-default"><i class="bi bi-location-arrow"></i>Subscribe</button>
-              </form>
+              <h4>
+                برای ارتباط با ما روی یکی از لینک های زیر کلیک کنید
+              </h4>
+
+
             </div>
           </div>
 
           <ul class="list-unstyled">
-            <li><a href="#"><i class="bi bi-facebook"></i></a></li>
-            <li><a href="#"><i class="bi bi-twitter"></i></a></li>
-            <li><a href="#"><i class="bi bi-instagram"></i></a></li>
-            <li><a href="#"><i class="bi bi-linkedin"></i></a></li>
+            <li><a href="https://t.me/+989353076803"><i class="bi bi-telegram"></i></a></li>
+            <li><a href="https://wa.me/+989353076803"><i class="bi bi-whatsapp"></i></a></li>
+            <li><a href="https://www.instagram.com/__cookiehouse__/"><i class="bi bi-instagram"></i></a></li>
+            <li><a href="tel:+989353076803"><i class="bi bi-phone"></i></a></li>
+
           </ul>
 
         </div>
       </div>
     </section><!-- End Newsletter Section -->
 
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="padd-section">
-
-      <div class="container" data-aos="fade-up">
-        <div class="section-title text-center">
-          <h2>Contact</h2>
-          <p class="separator">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
-        </div>
-
-        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="100">
-
-          <div class="col-lg-3 col-md-4">
-
-            <div class="info">
-              <div>
-                <i class="bi bi-geo-alt"></i>
-                <p>A108 Adam Street<br>New York, NY 535022</p>
-              </div>
-
-              <div class="email">
-                <i class="bi bi-envelope"></i>
-                <p>info@example.com</p>
-              </div>
-
-              <div>
-                <i class="bi bi-phone"></i>
-                <p>+1 5589 55488 55s</p>
-              </div>
-            </div>
-
-            <div class="social-links">
-              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-            </div>
-
-          </div>
-
-          <div class="col-lg-5 col-md-8">
-            <div class="form">
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                <div class="form-group">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                </div>
-                <div class="form-group mt-3">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                </div>
-                <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group mt-3">
-                  <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-                </div>
-                <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-                </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section><!-- End Contact Section -->
 
   </main><!-- End #main -->
 

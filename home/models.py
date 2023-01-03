@@ -47,7 +47,26 @@ class Post(models.Model):
     @property
     def imageURL(self):
         try:
-            url = self.image.url
+            url = self.img.url
         except:
             url = ''
         return url     
+class Order(models.Model):
+    phone = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200, null=True)
+    message = models.TextField(max_length=1000)
+    image = models.ImageField()
+
+
+
+    def __str__(self):
+
+        return self.name  
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url                    

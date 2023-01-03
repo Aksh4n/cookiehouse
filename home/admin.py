@@ -8,4 +8,6 @@ admin.site.register(Category)
 admin.site.register(Product)
 admin.site.register(New)
 admin.site.register(Post)
+admin.site.register(Order)
+
 
