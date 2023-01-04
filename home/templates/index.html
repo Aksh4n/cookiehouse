@@ -9,8 +9,8 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>CookieHouse</title>
-  <meta content="تهیه و طراحی انواع کوکی و بیسکوییت مناسبتی با  رویال آیسینگ" name="description">
-  <meta content="کوکی رویال آیسینگ " name="keywords">
+  <meta content=" تهیه و طراحی انواع کوکی و بیسکوییت مناسبتی با  رویال آیسینگ ارسال به تمامی نقاط کشور " name="description">
+  <meta content="  کوکی رویال آیسینگ شیراز اصفهان " name="keywords">
 
   <!-- Favicons -->
   <link href="{% static '' %}assets/img/logo.png" rel="icon">
@@ -38,10 +38,13 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <div id="logo">
-        <h1>              <a href="{% url 'home' %}" class="instagram"><i class="bi bi-instagram"></i></a>
-          <a href="{% url 'home' %}">__<span>Cookie</span>House</a>__</h1>
-        <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" title="" /></a>-->
+                  <!-- Uncomment below if you prefer to use an image logo -->
+
+        <h1>  
+          <a href="https://www.instagram.com/__cookiehouse__/"><img src="{% static '' %}assets/img/logo.png" alt="" title="" /></a>
+
+                      <a href="https://www.instagram.com/__cookiehouse__/" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.instagram.com/__cookiehouse__/">__<span>Cookie</span>House</a>__</h1>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -63,7 +66,7 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div class="hero-container" data-aos="fade-in">
-      <h1>CookieHouse</h1>
+      <a href="{% url 'home' %}"><h1>CookieHouse</h1></a>
       <h2>قبول سفارش انواع بیسکوییت مناسبتی</h2>
       <img src="{% static '' %}assets/img/green.png" alt="Hero Imgs" data-aos="zoom-out" data-aos-delay="100">
       <a href="" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn-get-started scrollto">ثبت سفارش</a>
@@ -293,9 +296,9 @@
         {% for a in b  %}
           <div class="col-md-6 col-lg-4">
             <div class="block-blog text-left">
-              <a href="#"><img src="{{a.imageURL}}" alt="img"></a>
+              <a><img src="{{a.imageURL}}" alt="img"></a>
               <div class="content-blog">
-                <h4><a href="#">    {{a.title}} </a></h4>
+                <h4><a href="#blog">{{a.title}}</a></h4>
                 <span>&#128151;</span>
                 <a class="float-end readmore" data-bs-toggle="modal" data-bs-target="#box{{a.id}}" href="">خواندن مطلب</a>
               </div>
